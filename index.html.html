@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be My Valentine?</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #ffd6e7, #ffefef);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            box-shadow: 0 15px 30px rgba(255, 105, 180, 0.2);
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            border: 3px solid #ff69b4;
+        }
+        
+        h1 {
+            color: #ff1493;
+            font-size: 3rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 0px rgba(255, 20, 147, 0.2);
+            letter-spacing: 1px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #d63384;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+        
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+        }
+        
+        .image-container {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            border: 5px solid white;
+        }
+        
+        .image-container img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+        
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+            position: relative;
+            z-index: 20;
+        }
+        
+        .btn {
+            padding: 18px 50px;
+            font-size: 1.5rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            min-width: 160px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .yes-btn {
+            background: linear-gradient(to right, #ff1493, #ff69b4);
+            color: white;
+            border: 3px solid #ff1493;
+        }
+        
+        .yes-btn:hover {
+            background: linear-gradient(to right, #ff0066, #ff3399);
+            transform: scale(1.05);
+            box-shadow: 0 12px 20px rgba(255, 20, 147, 0.4);
+        }
+        
+        .no-btn {
+            background: linear-gradient(to right, #4d79ff, #6699ff);
+            color: white;
+            border: 3px solid #4d79ff;
+        }
+        
+        .no-btn:hover {
+            background: linear-gradient(to right, #3366ff, #5588ff);
+            transform: scale(1.05);
+        }
+        
+        .message {
+            display: none;
+            margin-top: 20px;
+            padding: 25px;
+            background: linear-gradient(135deg, #ffd6e7, #ffb6c1);
+            border-radius: 20px;
+            color: #d63384;
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            animation: pulse 1.5s infinite;
+            border: 3px dashed #ff1493;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Floating elements styles */
+        .floating-heart, .floating-tulip {
+            position: absolute;
+            font-size: 2.5rem;
+            z-index: 1;
+            user-select: none;
+            pointer-events: none;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .floating-heart {
+            color: #ff1493;
+        }
+        
+        .floating-tulip {
+            color: #ff69b4;
+            font-size: 2.2rem;
+        }
+        
+        .audio-player {
+            margin-top: 20px;
+            width: 100%;
+            max-width: 500px;
+            background: linear-gradient(to right, #ffd6e7, #ffebf3);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            border: 2px solid #ffb6c1;
+        }
+        
+        .audio-player h3 {
+            color: #ff1493;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        audio {
+            width: 100%;
+            outline: none;
+            border-radius: 50px;
+        }
+        
+        audio::-webkit-media-controls-panel {
+            background-color: #ffebf3;
+        }
+        
+        .instructions {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #d63384;
+            font-style: italic;
+        }
+        
+        footer {
+            margin-top: 30px;
+            color: #ff69b4;
+            font-size: 0.9rem;
+        }
+        
+        /* Mobile Responsive Styles */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.3rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .btn {
+                padding: 15px 40px;
+                font-size: 1.3rem;
+                min-width: 140px;
+            }
+            
+            .message {
+                font-size: 1.5rem;
+                padding: 20px;
+            }
+            
+            .container {
+                padding: 20px;
+            }
+            
+            .buttons {
+                gap: 20px;
+            }
+            
+            .image-container {
+                max-width: 350px;
+            }
+            
+            .image-container img {
+                height: 250px;
+            }
+            
+            .floating-heart, .floating-tulip {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .btn {
+                padding: 12px 30px;
+                font-size: 1.2rem;
+                min-width: 130px;
+            }
+            
+            .message {
+                font-size: 1.3rem;
+                padding: 15px;
+            }
+            
+            .floating-heart, .floating-tulip {
+                font-size: 1.8rem;
+            }
+            
+            .buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .image-container {
+                max-width: 300px;
+            }
+            
+            .image-container img {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating hearts and tulips -->
+    <div class="floating-heart">❤️</div>
+    <div class="floating-heart">❤️</div>
+    <div class="floating-heart">❤️</div>
+    <div class="floating-heart">❤️</div>
+    <div class="floating-heart">❤️</div>
+    <div class="floating-tulip">🌷</div>
+    <div class="floating-tulip">🌷</div>
+    <div class="floating-tulip">🌷</div>
+    <div class="floating-tulip">🌷</div>
+    <div class="floating-tulip">🌷</div>
+    
+    <div class="container">
+        <h1>Will You Be My Valentine?</h1>
+        <p class="subtitle">Unta lablab na ko nimo hehehe</p>
+        
+        <div class="content">
+            <div class="image-container">
+                <img src="https://media.tenor.com/EA8ZZDkSIXkAAAAe/cat.png" alt="Cute cat with heart">
+            </div>
+            
+            <div class="buttons">
+                <button class="btn yes-btn" id="yesBtn">
+                    <i class="fas fa-heart"></i> YES! <i class="fas fa-heart"></i>
+                </button>
+                <button class="btn no-btn" id="noBtn">
+                    <i class="fas fa-times"></i> No <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="message" id="message">
+                YEYYEYEYEYYEY I love you my bebeb miming lablab ❤️🌷
+            </div>
+            
+            <div class="audio-player">
+                <h3><i class="fas fa-music"></i> This song can be our wedding soon puhon mwa mwa </h3>
+                <!-- Audio player for love song (separate from sound effects) -->
+                <audio controls id="loveSong">
+                    <!-- Add your love song MP3 here -->
+                    <source src="https://dl.dropbox.com/scl/fi/rnejlrrewb8btoumxo68m/Ikaw-at-Ako-by-Johnoy-Danao-Lyrics.mp3?rlkey=uigjh6ibr3d3al76sv9k5wg15&st=tibuotwd&" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+                <p class="instructions">tone deaf pa kayko I couldnt sing it properly so music nalang hehehe</p>
+            </div>
+        </div>
+        
+        <footer>
+           I miss you soo much my bebi miming lablab
+        </footer>
+    </div>
+
+    <script>
+        // Get elements
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const message = document.getElementById('message');
+        const floatingElements = document.querySelectorAll('.floating-heart, .floating-tulip');
+        
+        // ==================== SOUND EFFECTS ====================
+        // Your custom sound effect for YES button
+        const yesSound = new Audio('https://dl.dropbox.com/scl/fi/vz57tbof62argv4c7oeii/happy-happy-happy.mp3?rlkey=1rclzubia3qj8saho14nlbz99&st=a7d60hox&');
+        
+        // Sound effect for NO button
+        const noSound = new Audio('https://dl.dropbox.com/scl/fi/qwy7cjs1ic8cp3prhlrzo/crying-cat.mp3?rlkey=sjlkjh4dbysrgo6f90gdeg3c9&st=qqfy6gkr&');
+        
+        // Preload sound effects
+        [yesSound, noSound].forEach(sound => {
+            sound.preload = 'auto';
+            sound.volume = 0.8;
+        });
+        
+        // Function to play YES sound
+        function playYesSound() {
+            yesSound.currentTime = 0;
+            yesSound.play().catch(e => console.log("YES sound effect could not play"));
+        }
+        
+        // Function to play NO sound
+        function playNoSound() {
+            noSound.currentTime = 0;
+            noSound.play().catch(e => console.log("NO sound effect could not play"));
+        }
+        // ==================== END SOUND EFFECTS ====================
+        
+        // Variables for floating elements animation
+        let floatingElementsData = [];
+        
+        // Function to move button away when trying to click "No"
+        noBtn.addEventListener('mouseover', moveNoButton);
+        noBtn.addEventListener('touchstart', function(event) {
+            event.preventDefault();
+            moveNoButton();
+        });
+        
+        function moveNoButton() {
+            // Play NO sound effect
+            playNoSound();
+            
+            // Get viewport dimensions
+            const maxX = window.innerWidth - noBtn.offsetWidth - 40;
+            const maxY = window.innerHeight - noBtn.offsetHeight - 40;
+            
+            // Generate random position within viewport
+            const randomX = Math.floor(Math.random() * maxX);
+            const randomY = Math.floor(Math.random() * maxY);
+            
+            // Apply new position with smooth transition
+            noBtn.style.transition = "left 0.5s ease, top 0.5s ease";
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+            
+            // Add funny message for a moment
+            const originalText = noBtn.innerHTML;
+            noBtn.innerHTML = '<i class="fas fa-running"></i> nge di na ko nimo lab <i class="fas fa-running"></i>';
+            
+            setTimeout(() => {
+                noBtn.innerHTML = originalText;
+            }, 1000);
+        }
+        
+        // When "Yes" is clicked
+        yesBtn.addEventListener('click', function() {
+            // Play YES sound effect
+            playYesSound();
+            
+            // Add button click animation
+            yesBtn.style.transform = 'scale(0.95)';
+            
+            // Show message and hide buttons after short delay
+            setTimeout(() => {
+                message.style.display = 'block';
+                yesBtn.style.display = 'none';
+                noBtn.style.display = 'none';
+                
+                // Create more floating hearts and tulips
+                for (let i = 0; i < 15; i++) {
+                    createFloatingElement('❤️', 'floating-heart');
+                    setTimeout(() => {
+                        createFloatingElement('🌷', 'floating-tulip');
+                    }, i * 100);
+                }
+                
+                // Add confetti effect
+                createConfetti();
+                
+            }, 200);
+        });
+        
+        // Create new floating elements
+        function createFloatingElement(emoji, className) {
+            const element = document.createElement('div');
+            element.innerHTML = emoji;
+            element.className = className;
+            element.style.position = 'fixed';
+            element.style.fontSize = Math.random() * 30 + 25 + 'px';
+            element.style.left = Math.random() * 100 + 'vw';
+            element.style.top = '100vh';
+            element.style.opacity = '0.9';
+            element.style.zIndex = '9999';
+            element.style.pointerEvents = 'none';
+            document.body.appendChild(element);
+            
+            // Animate element floating up
+            const animation = element.animate([
+                { transform: 'translateY(0) rotate(0deg)', opacity: 0.9 },
+                { transform: `translateY(-${window.innerHeight + 100}px) rotate(${Math.random() * 360}deg)`, opacity: 0 }
+            ], {
+                duration: Math.random() * 3000 + 4000,
+                easing: 'cubic-bezier(0.215, 0.61, 0.355, 1)'
+            });
+            
+            // Remove element after animation completes
+            animation.onfinish = () => {
+                element.remove();
+            };
+        }
+        
+        // Create confetti effect
+        function createConfetti() {
+            const confettiColors = ['#ff1493', '#ff69b4', '#ffb6c1', '#4d79ff', '#6699ff'];
+            const confettiEmojis = ['❤️', '💖', '💕', '💗', '💓', '🌷', '🌸'];
+            
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.innerHTML = confettiEmojis[Math.floor(Math.random() * confettiEmojis.length)];
+                    confetti.style.position = 'fixed';
+                    confetti.style.fontSize = Math.random() * 20 + 15 + 'px';
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.top = '-50px';
+                    confetti.style.zIndex = '9999';
+                    confetti.style.pointerEvents = 'none';
+                    confetti.style.color = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+                    document.body.appendChild(confetti);
+                    
+                    // Animate confetti falling
+                    const animation = confetti.animate([
+                        { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
+                        { transform: `translateY(${window.innerHeight + 100}px) rotate(${Math.random() * 720}deg)`, opacity: 0 }
+                    ], {
+                        duration: Math.random() * 2000 + 2000,
+                        easing: 'cubic-bezier(0.215, 0.61, 0.355, 1)'
+                    });
+                    
+                    // Remove confetti after animation completes
+                    animation.onfinish = () => {
+                        confetti.remove();
+                    };
+                }, i * 50);
+            }
+        }
+        
+        // Initialize floating elements animation
+        function initFloatingElements() {
+            floatingElements.forEach((element, index) => {
+                // Random starting position
+                const startX = Math.random() * (window.innerWidth - 60);
+                const startY = Math.random() * (window.innerHeight - 60);
+                
+                // Random speed and direction
+                const speedX = (Math.random() - 0.5) * 2;
+                const speedY = (Math.random() - 0.5) * 2;
+                
+                // Set initial position
+                element.style.left = startX + 'px';
+                element.style.top = startY + 'px';
+                
+                // Store element data
+                floatingElementsData[index] = {
+                    x: startX,
+                    y: startY,
+                    speedX: speedX,
+                    speedY: speedY,
+                    element: element
+                };
+            });
+            
+            // Start animation loop
+            animateFloatingElements();
+        }
+        
+        // Animate floating elements
+        function animateFloatingElements() {
+            floatingElementsData.forEach(data => {
+                // Update position
+                data.x += data.speedX;
+                data.y += data.speedY;
+                
+                // Bounce off edges
+                if (data.x <= 0 || data.x >= window.innerWidth - 60) {
+                    data.speedX = -data.speedX;
+                }
+                
+                if (data.y <= 0 || data.y >= window.innerHeight - 60) {
+                    data.speedY = -data.speedY;
+                }
+                
+                // Apply new position
+                data.element.style.left = data.x + 'px';
+                data.element.style.top = data.y + 'px';
+            });
+            
+            // Continue animation
+            requestAnimationFrame(animateFloatingElements);
+        }
+        
+        // Initialize everything when page loads
+        window.addEventListener('DOMContentLoaded', function() {
+            initFloatingElements();
+        });
+        
+        // Reset No button position on window resize
+        window.addEventListener('resize', function() {
+            noBtn.style.position = '';
+            noBtn.style.left = '';
+            noBtn.style.top = '';
+            noBtn.style.transition = '';
+        });
+    </script>
+</body>
+</html>
